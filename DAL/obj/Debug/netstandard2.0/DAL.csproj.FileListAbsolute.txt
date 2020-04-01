@@ -1,0 +1,8 @@
+C:\Misc\EPAM Training\Task_6\DAL\bin\Debug\netstandard2.0\DAL.deps.json
+C:\Misc\EPAM Training\Task_6\DAL\bin\Debug\netstandard2.0\DAL.dll
+C:\Misc\EPAM Training\Task_6\DAL\bin\Debug\netstandard2.0\DAL.pdb
+C:\Misc\EPAM Training\Task_6\DAL\obj\Debug\netstandard2.0\DAL.csprojAssemblyReference.cache
+C:\Misc\EPAM Training\Task_6\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfoInputs.cache
+C:\Misc\EPAM Training\Task_6\DAL\obj\Debug\netstandard2.0\DAL.AssemblyInfo.cs
+C:\Misc\EPAM Training\Task_6\DAL\obj\Debug\netstandard2.0\DAL.dll
+C:\Misc\EPAM Training\Task_6\DAL\obj\Debug\netstandard2.0\DAL.pdb
