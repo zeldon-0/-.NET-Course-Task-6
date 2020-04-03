@@ -42,13 +42,13 @@ namespace WebApi.Controllers
                 return NotFound();
             }
 
-            return Ok(product);
+            return product;
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutProduct(int id, ProductDTO product)
+        public IActionResult PutProduct(ProductDTO product)
         {
-            if (id != product.Id)
+            if (!ModelState.IsValid)
             {
                 return BadRequest();
             }
@@ -67,6 +67,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<ProductDTO> PostProduct(ProductDTO product)
         {
+            if (!ModelState.IsValid || product.Id != 0)
+            {
+                return BadRequest();
+            }
             var newProduct =  _productService.Create(product);
 
             return CreatedAtAction("GetProduct", new { id = newProduct.Id }, newProduct);

@@ -43,17 +43,15 @@ namespace WebApi.Controllers
             {
                 return NotFound();
             }
-            //order.Products = _productService.GetByOrder(id);
-            return Ok(order);
+
+            return order;
         }
 
         [HttpPut("{id}")]
-        public IActionResult PutOrder(int id, OrderDTO order)
+        public IActionResult PutOrder(OrderDTO order)
         {
-            if (id != order.Id)
-            {
+            if (!ModelState.IsValid)
                 return BadRequest();
-            }
 
             var foundOrder = _orderService.GetById(order.Id);
             if(foundOrder == null)
@@ -69,6 +67,10 @@ namespace WebApi.Controllers
         [HttpPost]
         public ActionResult<OrderDTO> PostOrder(OrderDTO order)
         {
+            if (!ModelState.IsValid || order.Id != 0)
+            {
+                return BadRequest();
+            }
             var newOrder =  _orderService.Create(order);
 
             return CreatedAtAction("GetOrder", new { id = newOrder.Id }, newOrder);
@@ -129,20 +131,27 @@ namespace WebApi.Controllers
 
         [HttpPut]
         [Route("{orderId}/Products/")]
-        public ActionResult PostSubItemByToDoItem(int orderId, ProductDTO product)
+        public IActionResult PostProductByOrder(int orderId, ProductDTO product)
         {
             OrderDTO order = _orderService.GetById(orderId);
             if (order == null)
                 return NotFound();
+            if (!ModelState.IsValid)
+                return BadRequest();
+            
             ProductDTO prod = _productService.GetById(product.Id);
-
             if (prod == null)
             {
+                if (product.Id != 0)
+                    return BadRequest();
+        
                 ProductDTO newProd = _productService.CreateForOrder(orderId, product);
                 return CreatedAtAction("GetProduct", new {Controller = "Product", Id = newProd.Id}, newProd);
             }
             else
             {
+                if (product.Name != prod.Name)
+                    return BadRequest();
                 OrderDTO newOrder = _orderService.AddToOrder(orderId, product);
                 newOrder.Products = _productService.GetByOrder(orderId);
                 return Ok(newOrder);
