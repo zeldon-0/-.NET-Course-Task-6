@@ -91,7 +91,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        [Route("{OrderId}/Products/")]
+        [Route("{orderId}/Products/")]
         public ActionResult<IEnumerable<ProductDTO>> GetOrderProducts (int orderId)
         {
             var order = _orderService.GetById(orderId);
